@@ -1,11 +1,11 @@
-//#include "heap.h"
-//void adjustdown(Heap* hp, int n)
+#include "heap.h"
+//void adjustdown(Heap* hp, int p)
 //{
 //	//向下调整算法，需要的是树还有起始点下标
-//	//小堆
-//	int cur = n;
-//	int tmp;
-//	int m;
+//	//大堆
+//	int cur = p;
+//	int n;
+//	
 //	while (cur * 2 + 1 < hp->size)
 //	{
 //		if (cur * 2 + 2 >= hp->size)
@@ -14,95 +14,160 @@
 //		}
 //		else
 //		{
-//			if (hp->data[cur * 2 + 1] > hp->data[cur])
+//			if (hp->data[cur * 2 + 1] >= hp->data[cur * 2 + 2])
 //			{
+//
+//				n = cur * 2 + 1;
 //			}
 //			else
 //			{
+//				n = cur * 2 + 2;
+//			}
+//			if (hp->data[cur] > hp->data[n])
+//			{
+//				break;
+//				//cur = n;
 //
 //			}
-//		}
-//		if (hp->data[cur])
-//		{
+//			else
+//			{
+//				int tmp = hp->data[cur];
+//				hp->data[cur] = hp->data[n];
+//				hp->data[n] = tmp;
+//				cur = n;
+//			}
 //		}
 //	}
+//		 
 //}
-
-#include "heap.h"
-void adjustdown(Heap* hp, int n)
+void adjustdown(Heap* hp, int m)
 {
-	//向下调整算法，需要的是树还有起始点下标
-	//小堆
-	int cur = n;
-	int tmp;
-	//int m;
+	//老师写的也有问题
+	int cur = m;
+	int n;
+
 	while (cur * 2 + 1 < hp->size)
 	{
 		if (cur * 2 + 2 >= hp->size)
 		{
-			//有左孩子没有右孩子
-			if (hp->data[cur*2+1]>hp->data[cur])
+			n = cur * 2 + 1;
+		}
+		else
+		{
+			if (hp->data[cur * 2 + 1] > hp->data[cur * 2 + 2])
 			{
-
+				n = cur * 2 + 1;
 			}
 			else
 			{
-				tmp = hp->data[cur];
-				hp->data[cur] = hp->data[cur * 2 + 1];
-				hp->data[cur * 2 + 1] = tmp;
-				cur = cur * 2 + 1;
-				 
+				n = cur * 2 + 2;
 			}
-			 
 		}
 
-		
-		do 
+		if (hp->data[cur] < hp->data[n])
 		{
-			//此处既有左孩子又有右孩子
-					//判断左孩子
-			if (hp->data[cur * 2 + 1] > hp->data[cur])
-			{
-				//左孩子大于父亲
-				
-			}
-			else
-			{
-				//要的是小堆此处应该交换
-				tmp = hp->data[cur];
-				hp->data[cur] = hp->data[cur * 2 + 1];
-				hp->data[cur * 2 + 1] = tmp;
-				cur = cur * 2 + 1;
-				break;
-			}
-			//判断右孩子
-			if (hp->data[cur * 2 + 2] > hp->data[cur])
-			{
+			int tmp = hp->data[cur];
+			hp->data[cur] = hp->data[n];
+			hp->data[n] = tmp;
 
-			}
-			else
-			{
-				tmp = hp->data[cur];
-				hp->data[cur] = hp->data[cur * 2 + 2];
-				hp->data[cur * 2 + 2] = tmp;
-				cur = cur * 2 + 2;
-				break;
-			}
-		} while (0);
-		
+			cur = n;
+		}
+		else
+		{
+			//break;
+			cur = n;
+		}
+	}
+	if (cur==n)
+	{
+		return;
+	}
+	else
+	{
+		adjustdown(hp, n);
 	}
 }
+
+//#include "heap.h"
+//void adjustdown(Heap* hp, int n)
+//{
+//	//向下调整算法，需要的是堆还有起始点下标，左右子树必须是堆，logn
+//	//小堆
+//	int cur = n;
+//	int tmp;
+//	//int m;
+//	while (cur * 2 + 1 < hp->size)
+//	{
+//		if (cur * 2 + 2 >= hp->size)
+//		{
+//			//有左孩子没有右孩子
+//			if (hp->data[cur*2+1]>hp->data[cur])
+//			{
+//
+//			}
+//			else
+//			{
+//				tmp = hp->data[cur];
+//				hp->data[cur] = hp->data[cur * 2 + 1];
+//				hp->data[cur * 2 + 1] = tmp;
+//				cur = cur * 2 + 1;
+//				 
+//			}
+//			 
+//		}
+//		//叶子n+1/2，非叶子n/2
+//		
+//		do 
+//		{
+//			//此处既有左孩子又有右孩子
+//					//判断左孩子
+//			if (hp->data[cur * 2 + 1] > hp->data[cur])
+//			{
+//				//左孩子大于父亲
+//				
+//			}
+//			else
+//			{
+//				//要的是小堆此处应该交换
+//				tmp = hp->data[cur];
+//				hp->data[cur] = hp->data[cur * 2 + 1];
+//				hp->data[cur * 2 + 1] = tmp;
+//				cur = cur * 2 + 1;
+//				break;
+//			}
+//			//判断右孩子
+//			if (hp->data[cur * 2 + 2] > hp->data[cur])
+//			{
+//
+//			}
+//			else
+//			{
+//				tmp = hp->data[cur];
+//				hp->data[cur] = hp->data[cur * 2 + 2];
+//				hp->data[cur * 2 + 2] = tmp;
+//				cur = cur * 2 + 2;
+//				break;
+//			}
+//		} while (0);
+//		
+//	}
+//}
+
 void HeapInit(Heap* hp, HPDataType* a, int n)
 {
 	//初始化操作用数组赋值
 	hp->size = 0;
 	hp->capacity = 2 * n;
 	hp->data = (HPDataType*)malloc(2*n * sizeof(HPDataType));
-	for (int i=0;i<n;++i)
+	for (int i = 0; i < n; ++i)
 	{
 		hp->data[i] = a[i];
 		hp->size++;
 	}
+	/*for (int i=n/2-1;i>=0;--i)
+	{
+		adjustdown(hp, i);
+	}*/
 }
 void Heapprintf(Heap* hp, int n)
 {
@@ -163,39 +228,50 @@ void HeapPop(Heap* hp)
 	adjustdown(hp, 0);
 
 }
+//堆排还有问题
 void HeapSort(Heap* hp, int n)
 {
-
+	//堆排有问题,进行堆排的时候，大顶堆得到升序，小顶堆得到降序，而且顶在整个堆的元素中
+	//必须为最大或者最小。
 	//方法：将堆头和每个叶子节点交换，每交换一次执行一次自顶向下算法
 	//一个偶数堆非叶子节点的个数是n/2，叶子节点的个数是n/2个
 	//一个奇数堆非叶子节点的个数是n/2，叶子节点的个数是n/2+1个，基于c语言的除法
-	int tag = hp->size;
-	if (tag%2==1)
-	{
-		//奇数个
-		 
-		for (int i=0;i< hp->size /2+1;++i)
-		{
-			int tmp = 0;
-			tmp = hp->data[0];
-			hp->data[0] = hp->data[tag - 1];
-			hp->data[tag - 1] = tmp;
-			adjustdown(hp, 0);
-			tag--;
-		}
-	}
-	else
-	{
-		//偶数个
-		for (int i = 0; i < hp->size / 2; ++i)
-		{
-			int tmp = 0;
-			tmp = hp->data[0];
-			hp->data[0] = hp->data[tag - 1];
-			hp->data[tag - 1] = tmp;
-			adjustdown(hp, 0);
-			tag--;
-		}
-	}
+	//int tag = hp->size;
+	//if (tag%2==1)
+	//{
+	//	//奇数个
+	//	 
+	//	for (int i=0;i< hp->size /2+1;++i)
+	//	{
+	//		int tmp = 0;
+	//		tmp = hp->data[0];
+	//		hp->data[0] = hp->data[tag - 1];
+	//		hp->data[tag - 1] = tmp;
+	//		adjustdown(hp, 0);
+	//		tag--;
+	//	}
+	//}
+	//else
+	//{
+	//	//偶数个
+	//	for (int i = 0; i < hp->size / 2; ++i)
+	//	{
+	//		int tmp = 0;
+	//		tmp = hp->data[0];
+	//		hp->data[0] = hp->data[tag - 1];
+	//		hp->data[tag - 1] = tmp;
+	//		adjustdown(hp, 0);
+	//		tag--;
+	//	}
+	//}
 
+	//
+	//
+	//
+	int tmp = hp->size;
+	while (hp->size>1)
+	{
+		HeapPop(hp);
+	}
+	hp->size = tmp; 
 }
