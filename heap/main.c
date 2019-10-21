@@ -1,5 +1,5 @@
 #include"heap.h"
-int main56()
+int mainkjhf()
 {
 	Heap hp;
 	int n = 10;//数组长度
@@ -16,7 +16,7 @@ int main56()
 	//HeapPop(&hp);
 	//Heapprintf(&hp, n);
 	//Heapprintf(&hp, n);
-    HeapSort(&hp, pos);
+    //HeapSort(&hp, pos);
 	Heapprintf(&hp, n);
     system("pause");
     return 0;

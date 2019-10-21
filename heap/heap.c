@@ -42,16 +42,20 @@
 //}
 void adjustdown(Heap* hp, int m)
 {
-	//老师写的也有问题
+	// 正确的自顶向下算法
+	/* 要开始调整的位置 */
 	int cur = m;
-	int n;
 
+	int n;
+	 /* 从要开始的位置向下调整 */
 	while (cur * 2 + 1 < hp->size)
 	{
+		/* 确保不会超界 */
 		if (cur * 2 + 2 >= hp->size)
 		{
 			n = cur * 2 + 1;
 		}
+		/* 以上是最后一个父节点有左孩子没有右孩子的情况 */
 		else
 		{
 			if (hp->data[cur * 2 + 1] > hp->data[cur * 2 + 2])
@@ -66,6 +70,7 @@ void adjustdown(Heap* hp, int m)
 
 		if (hp->data[cur] < hp->data[n])
 		{
+			/* 大根堆 */
 			int tmp = hp->data[cur];
 			hp->data[cur] = hp->data[n];
 			hp->data[n] = tmp;
@@ -78,12 +83,14 @@ void adjustdown(Heap* hp, int m)
 			cur = n;
 		}
 	}
+	/* 已经处理到最后一个孩子节点 */
 	if (cur==n)
 	{
 		return;
 	}
 	else
 	{
+		/* 递归调整 */
 		adjustdown(hp, n);
 	}
 }
@@ -161,13 +168,14 @@ void HeapInit(Heap* hp, HPDataType* a, int n)
 	hp->data = (HPDataType*)malloc(2*n * sizeof(HPDataType));
 	for (int i = 0; i < n; ++i)
 	{
+		/* 构建完全二叉树 */
 		hp->data[i] = a[i];
 		hp->size++;
 	}
-	/*for (int i=n/2-1;i>=0;--i)
+	for (int i = n / 2 - 1; i >= 0; --i)
 	{
 		adjustdown(hp, i);
-	}*/
+	}
 }
 void Heapprintf(Heap* hp, int n)
 {
@@ -265,13 +273,13 @@ void HeapSort(Heap* hp, int n)
 	//	}
 	//}
 
-	//
-	//
-	//
+	 
+
+	/*
 	int tmp = hp->size;
 	while (hp->size>1)
 	{
 		HeapPop(hp);
 	}
-	hp->size = tmp; 
+	hp->size = tmp;  */
 }

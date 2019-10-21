@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #define INIT_ARRAY_SIZE 50
-
+//网上的对照
 int heap_size; //堆大小
 int heap_cap_size;  //堆容量大小
 
